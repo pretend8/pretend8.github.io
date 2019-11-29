@@ -170,6 +170,355 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/29/%E5%8E%9F%E5%9E%8B-%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%90%86%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pretend Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/29/%E5%8E%9F%E5%9E%8B-%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%90%86%E8%A7%A3/" class="post-title-link" itemprop="url">原型 原型链理解</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-11-29 16:16:45 / Modified: 16:17:22" itemprop="dateCreated datePublished" datetime="2019-11-29T16:16:45+08:00">2019-11-29</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h6 id="es6之前实例化对象-构造函数"><a href="#es6之前实例化对象-构造函数" class="headerlink" title="es6之前实例化对象 构造函数"></a>es6之前实例化对象 构造函数</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">function Person(name,age)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    this.name &#x3D; name</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    this.age &#x3D; age</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    this.say &#x3D; function()&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        console.log(&#39;i am &#39;+ this.name)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">let p1 &#x3D; new Person(&#39;zzx&#39;,18)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">p1.say() &#x2F;&#x2F; i am zzx</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">let p2 &#x3D; new Person(&#39;zcy&#39;,16)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">p2.say() &#x2F;&#x2F; i am zcy</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Person是构造函数 p1,p2是通过Person这个构造函数实力出来的对象</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 原型到底是什么 prototype __proto__ 指的是什么呢</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 每个构造函数都有prototype这个属性, 而每个实例化出来的对象都拥有__proto__属性</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">console.dir(Person) </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">&#x2F;*</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">ƒ Person(name,age)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">arguments: null</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">caller: null</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">length: 2</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">name: &quot;Person&quot;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">prototype: &#123;constructor: ƒ&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">__proto__: ƒ ()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">[[FunctionLocation]]: VM108:1</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">[[Scopes]]: Scopes[2]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">*&#x2F;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">console.dir(p1)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">&#x2F;*</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line">Person age: 18 name: &quot;zzx&quot; say: ƒ () __proto__: Object</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line">*&#x2F;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;每个实例化出来的对象的__proto__属性 都是指向构造函数的prototype</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">console.log(Person.prototype &#x3D;&#x3D;&#x3D; p1.__proto__)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line">console.log(Person.prototype) </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">&#x2F;* &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">45</span></pre></td><td class="code"><pre><span class="line">    constructor: ƒ Person(name,age)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">46</span></pre></td><td class="code"><pre><span class="line">    __proto__: Object</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">47</span></pre></td><td class="code"><pre><span class="line">&#125;*&#x2F;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">48</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 从上面打印的Person.prototype可以看出也是个对象 暂且称为原型对象，它里面拥有两个属性，我看可以看到constructor属性 它的值正好是我们的构造函数，也就是说 构造函数的prototype指向的是它的原型对象，原型对象的constructor指向构造函数本身，也就是谁构造出来的</span></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/29/%E7%BB%A7%E6%89%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pretend Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/29/%E7%BB%A7%E6%89%BF/" class="post-title-link" itemprop="url">继承</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-11-29 16:16:17 / Modified: 16:17:05" itemprop="dateCreated datePublished" datetime="2019-11-29T16:16:17+08:00">2019-11-29</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="对象使用"><a href="#对象使用" class="headerlink" title="对象使用"></a>对象使用</h3><h3 id="Object-is"><a href="#Object-is" class="headerlink" title="Object.is"></a>Object.is</h3><p>Object.is(val,val1) // 比较是否一致  Object.is(NaN,NaN) // true</p>
+<hr>
+<h3 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign"></a>Object.assign</h3><p>Object.assign(target,obj1,obj2) // 合并对象 浅拷贝 只拷贝自身属性，不拷贝继承属性和不可枚举的属性<br>// 要保持克隆继承的值的话</p>
+<h6 id="Object-getPrototypeOf-方法返回指定对象的原型（内部-Prototype-属性的值"><a href="#Object-getPrototypeOf-方法返回指定对象的原型（内部-Prototype-属性的值" class="headerlink" title="Object.getPrototypeOf()  方法返回指定对象的原型（内部[[Prototype]]属性的值"></a>Object.getPrototypeOf()  方法返回指定对象的原型（内部[[Prototype]]属性的值</h6><h6 id="Object-create-方法创建一个新对象，使用现有的对象来提供新创建的对象的proto。"><a href="#Object-create-方法创建一个新对象，使用现有的对象来提供新创建的对象的proto。" class="headerlink" title="Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的proto。"></a>Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的<strong>proto</strong>。</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"> function clone(origin)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    const originProto &#x3D; Object.getPropertyof(origin)  &#x2F;&#x2F;获得原型</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    Object.assign(Object.create(originProto),origin)   &#x2F;&#x2F; 创建已originProto为原型的对象在合并origin</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Object-getOwnPropertyDescriptors"><a href="#Object-getOwnPropertyDescriptors" class="headerlink" title="Object.getOwnPropertyDescriptors()"></a>Object.getOwnPropertyDescriptors()</h3><p>ES5 的Object.getOwnPropertyDescriptor()方法会返回某个对象属性的描述对象（descriptor）。ES2017 引入了Object.getOwnPropertyDescriptors()方法，返回指定对象所有自身属性（非继承属性）的描述对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">const obj &#x3D; &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  foo: 123,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  get bar() &#123; return &#39;abc&#39; &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">Object.getOwnPropertyDescriptors(obj)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; &#123; foo:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;    &#123; value: 123,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;      writable: true,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;      enumerable: true,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;      configurable: true &#125;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;   bar:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;    &#123; get: [Function: get bar],</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;      set: undefined,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;      enumerable: true,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;      configurable: true &#125; &#125;</span></pre></td></tr></table></figure>
+<h6 id="Object-getOwnPropertyDescriptors-方法配合Object-defineProperties-方法，就可以实现正确拷贝"><a href="#Object-getOwnPropertyDescriptors-方法配合Object-defineProperties-方法，就可以实现正确拷贝" class="headerlink" title="Object.getOwnPropertyDescriptors()方法配合Object.defineProperties()方法，就可以实现正确拷贝"></a>Object.getOwnPropertyDescriptors()方法配合Object.defineProperties()方法，就可以实现正确拷贝</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">const mergeObj &#x3D; (source,target) &#x3D;&gt;&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    Object.defineProperties(target,Object.getOwnPropertyDescriptors(source))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h6 id="Object-getOwnPropertyDescriptors-方法配合Object-create-可以克隆-浅拷贝"><a href="#Object-getOwnPropertyDescriptors-方法配合Object-create-可以克隆-浅拷贝" class="headerlink" title="Object.getOwnPropertyDescriptors()方法配合Object.create()可以克隆 浅拷贝"></a>Object.getOwnPropertyDescriptors()方法配合Object.create()可以克隆 浅拷贝</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">const obj &#x3D; &#123;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">Object.create(Object.getPropertyOf(obj),Object.getOwnPropertyDescriptors(obj))</span></pre></td></tr></table></figure>
+<hr>
+<h6 id="Object-getOwnPropertyDescriptors-方法可以实现一个对象继承另一个对象。以前，继承另一个对象，常常写成下面这样。"><a href="#Object-getOwnPropertyDescriptors-方法可以实现一个对象继承另一个对象。以前，继承另一个对象，常常写成下面这样。" class="headerlink" title="Object.getOwnPropertyDescriptors()方法可以实现一个对象继承另一个对象。以前，继承另一个对象，常常写成下面这样。"></a>Object.getOwnPropertyDescriptors()方法可以实现一个对象继承另一个对象。以前，继承另一个对象，常常写成下面这样。</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 写法一</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">const obj &#x3D; &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  __proto__: prot,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  foo: 123,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 写法二</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">const obj &#x3D; Object.create(prot)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">obj.foo &#x3D; 123</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 写法三</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">const obj &#x3D; Object.assign(Object.create(prot),&#123;foo:123&#125;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Object.getOwnPropertyDescriptors()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">const obj &#x3D; Object.create(prot,Object.getOwnPropertyDescriptors(&#123;foo:123&#125;))</span></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="proto属性，Object-setPrototypeOf-，Object-getPrototypeOf-Object-create"><a href="#proto属性，Object-setPrototypeOf-，Object-getPrototypeOf-Object-create" class="headerlink" title="proto属性，Object.setPrototypeOf()，Object.getPrototypeOf() ,Object.create()"></a><strong>proto</strong>属性，Object.setPrototypeOf()，Object.getPrototypeOf() ,Object.create()</h3><h6 id="Object-setPrototyperof-target-prot"><a href="#Object-setPrototyperof-target-prot" class="headerlink" title="Object.setPrototyperof(target,,prot)"></a>Object.setPrototyperof(target,,prot)</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">const obj &#x3D; &#123;name:&#39;xiaohong&#39;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">const obj1 &#x3D; &#123;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">Object.setPropertyOf(obj1,obj)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">console.log(obj1.name)  &#x2F;&#x2F; xiaohong</span></pre></td></tr></table></figure>
+
+<h6 id="Object-getPrototypeOf-obj"><a href="#Object-getPrototypeOf-obj" class="headerlink" title="Object.getPrototypeOf(obj)"></a>Object.getPrototypeOf(obj)</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">function Person()&#123;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">let p1 &#x3D; new Person()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">Object.getPropertyOf(p1) &#x3D;&#x3D;&#x3D; Person.prototype &#x2F;&#x2F; true</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 如果参数不是对象，会被自动转为对象</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">Object.getPropertyOf(1) &#x2F;&#x2F; Object.getPropertyOf(Number(1))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">Object.getPropertyOf(true) &#x2F;&#x2F; Object.getPropertyOf(Boolean(true))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">Object.getPropertyOf(&#39;foo&#39;) &#x2F;&#x2F; Object.getPropertyOf(String(foo))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">Object.getPrototypeOf(1) &#x3D;&#x3D;&#x3D; Number.prototype &#x2F;&#x2F; true</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">Object.getPrototypeOf(true) &#x3D;&#x3D;&#x3D; Boolean.prototype &#x2F;&#x2F; true</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">Object.getPrototypeOf(&#39;foo&#39;) &#x3D;&#x3D;&#x3D; String.prototype &#x2F;&#x2F; true</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 如果参数是undefined或null，它们无法转为对象，所以会报错。</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">Object.getPropertyOf(undefined) &#x2F;&#x2F; baocuo</span></pre></td></tr></table></figure>
+<hr>
+<h3 id="Object-keys-Object-values-Object-entries-遍历对象"><a href="#Object-keys-Object-values-Object-entries-遍历对象" class="headerlink" title="Object.keys() Object.values Object.entries() // 遍历对象"></a>Object.keys() Object.values Object.entries() // 遍历对象</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Object.keys()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">let person &#x3D;&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    name:&#39;zzx&#39;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    age:18,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    hobbies:&#39;games&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">Object.keys(person) &#x2F;&#x2F; [&#39;name&#39;,&#39;age&#39;,&#39;hobbies&#39;]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">Object.values(person) &#x2F;&#x2F; [&#39;zzx&#39;,18,&#39;games&#39;]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">Object.entries(person)  &#x2F;&#x2F; [[&#39;name&#39;,&#39;zzx&#39;],[&#39;age&#39;,18],[&#39;hobbies&#39;,&#39;games&#39;]]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">const map &#x3D; new Map(Object.entries(person)); &#x2F;&#x2F; Object.entries 可直接转成map数据结构</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Object.entries() Object.fromEntries()是相反的操作 </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">var data &#x3D; Object.entries(person)    &#x2F;&#x2F; data&#x3D;&gt;[[&#39;name&#39;,&#39;zzx&#39;][&#39;age&#39;,18][&#39;hobbies&#39;,&#39;games&#39;]]  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 键值对形式的数组 可以转成map</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">Object.formEntries(new Map(data)) &#x2F;&#x2F; &#123;name:&#39;zzx&#39;,age:18,hobbies:&#39;games&#39;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; map数据结构转化成对象</span></pre></td></tr></table></figure>
+
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/29/%E5%AF%B9%E8%B1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pretend Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/29/%E5%AF%B9%E8%B1%A1/" class="post-title-link" itemprop="url">对象</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-11-29 16:15:25 / Modified: 16:15:42" itemprop="dateCreated datePublished" datetime="2019-11-29T16:15:25+08:00">2019-11-29</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="对象使用"><a href="#对象使用" class="headerlink" title="对象使用"></a>对象使用</h3><h3 id="Object-is"><a href="#Object-is" class="headerlink" title="Object.is"></a>Object.is</h3><p>Object.is(val,val1) // 比较是否一致  Object.is(NaN,NaN) // true</p>
+<hr>
+<h3 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign"></a>Object.assign</h3><p>Object.assign(target,obj1,obj2) // 合并对象 浅拷贝 只拷贝自身属性，不拷贝继承属性和不可枚举的属性<br>// 要保持克隆继承的值的话</p>
+<h6 id="Object-getPrototypeOf-方法返回指定对象的原型（内部-Prototype-属性的值"><a href="#Object-getPrototypeOf-方法返回指定对象的原型（内部-Prototype-属性的值" class="headerlink" title="Object.getPrototypeOf()  方法返回指定对象的原型（内部[[Prototype]]属性的值"></a>Object.getPrototypeOf()  方法返回指定对象的原型（内部[[Prototype]]属性的值</h6><h6 id="Object-create-方法创建一个新对象，使用现有的对象来提供新创建的对象的proto。"><a href="#Object-create-方法创建一个新对象，使用现有的对象来提供新创建的对象的proto。" class="headerlink" title="Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的proto。"></a>Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的<strong>proto</strong>。</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"> function clone(origin)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    const originProto &#x3D; Object.getPropertyof(origin)  &#x2F;&#x2F;获得原型</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    Object.assign(Object.create(originProto),origin)   &#x2F;&#x2F; 创建已originProto为原型的对象在合并origin</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Object-getOwnPropertyDescriptors"><a href="#Object-getOwnPropertyDescriptors" class="headerlink" title="Object.getOwnPropertyDescriptors()"></a>Object.getOwnPropertyDescriptors()</h3><p>ES5 的Object.getOwnPropertyDescriptor()方法会返回某个对象属性的描述对象（descriptor）。ES2017 引入了Object.getOwnPropertyDescriptors()方法，返回指定对象所有自身属性（非继承属性）的描述对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">const obj &#x3D; &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  foo: 123,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  get bar() &#123; return &#39;abc&#39; &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">Object.getOwnPropertyDescriptors(obj)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; &#123; foo:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;    &#123; value: 123,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;      writable: true,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;      enumerable: true,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;      configurable: true &#125;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;   bar:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;    &#123; get: [Function: get bar],</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;      set: undefined,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;      enumerable: true,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;      configurable: true &#125; &#125;</span></pre></td></tr></table></figure>
+<h6 id="Object-getOwnPropertyDescriptors-方法配合Object-defineProperties-方法，就可以实现正确拷贝"><a href="#Object-getOwnPropertyDescriptors-方法配合Object-defineProperties-方法，就可以实现正确拷贝" class="headerlink" title="Object.getOwnPropertyDescriptors()方法配合Object.defineProperties()方法，就可以实现正确拷贝"></a>Object.getOwnPropertyDescriptors()方法配合Object.defineProperties()方法，就可以实现正确拷贝</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">const mergeObj &#x3D; (source,target) &#x3D;&gt;&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    Object.defineProperties(target,Object.getOwnPropertyDescriptors(source))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h6 id="Object-getOwnPropertyDescriptors-方法配合Object-create-可以克隆-浅拷贝"><a href="#Object-getOwnPropertyDescriptors-方法配合Object-create-可以克隆-浅拷贝" class="headerlink" title="Object.getOwnPropertyDescriptors()方法配合Object.create()可以克隆 浅拷贝"></a>Object.getOwnPropertyDescriptors()方法配合Object.create()可以克隆 浅拷贝</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">const obj &#x3D; &#123;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">Object.create(Object.getPropertyOf(obj),Object.getOwnPropertyDescriptors(obj))</span></pre></td></tr></table></figure>
+<hr>
+<h6 id="Object-getOwnPropertyDescriptors-方法可以实现一个对象继承另一个对象。以前，继承另一个对象，常常写成下面这样。"><a href="#Object-getOwnPropertyDescriptors-方法可以实现一个对象继承另一个对象。以前，继承另一个对象，常常写成下面这样。" class="headerlink" title="Object.getOwnPropertyDescriptors()方法可以实现一个对象继承另一个对象。以前，继承另一个对象，常常写成下面这样。"></a>Object.getOwnPropertyDescriptors()方法可以实现一个对象继承另一个对象。以前，继承另一个对象，常常写成下面这样。</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 写法一</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">const obj &#x3D; &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  __proto__: prot,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  foo: 123,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 写法二</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">const obj &#x3D; Object.create(prot)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">obj.foo &#x3D; 123</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 写法三</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">const obj &#x3D; Object.assign(Object.create(prot),&#123;foo:123&#125;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Object.getOwnPropertyDescriptors()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">const obj &#x3D; Object.create(prot,Object.getOwnPropertyDescriptors(&#123;foo:123&#125;))</span></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="proto属性，Object-setPrototypeOf-，Object-getPrototypeOf-Object-create"><a href="#proto属性，Object-setPrototypeOf-，Object-getPrototypeOf-Object-create" class="headerlink" title="proto属性，Object.setPrototypeOf()，Object.getPrototypeOf() ,Object.create()"></a><strong>proto</strong>属性，Object.setPrototypeOf()，Object.getPrototypeOf() ,Object.create()</h3><h6 id="Object-setPrototyperof-target-prot"><a href="#Object-setPrototyperof-target-prot" class="headerlink" title="Object.setPrototyperof(target,,prot)"></a>Object.setPrototyperof(target,,prot)</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">const obj &#x3D; &#123;name:&#39;xiaohong&#39;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">const obj1 &#x3D; &#123;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">Object.setPropertyOf(obj1,obj)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">console.log(obj1.name)  &#x2F;&#x2F; xiaohong</span></pre></td></tr></table></figure>
+
+<h6 id="Object-getPrototypeOf-obj"><a href="#Object-getPrototypeOf-obj" class="headerlink" title="Object.getPrototypeOf(obj)"></a>Object.getPrototypeOf(obj)</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">function Person()&#123;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">let p1 &#x3D; new Person()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">Object.getPropertyOf(p1) &#x3D;&#x3D;&#x3D; Person.prototype &#x2F;&#x2F; true</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 如果参数不是对象，会被自动转为对象</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">Object.getPropertyOf(1) &#x2F;&#x2F; Object.getPropertyOf(Number(1))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">Object.getPropertyOf(true) &#x2F;&#x2F; Object.getPropertyOf(Boolean(true))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">Object.getPropertyOf(&#39;foo&#39;) &#x2F;&#x2F; Object.getPropertyOf(String(foo))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">Object.getPrototypeOf(1) &#x3D;&#x3D;&#x3D; Number.prototype &#x2F;&#x2F; true</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">Object.getPrototypeOf(true) &#x3D;&#x3D;&#x3D; Boolean.prototype &#x2F;&#x2F; true</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">Object.getPrototypeOf(&#39;foo&#39;) &#x3D;&#x3D;&#x3D; String.prototype &#x2F;&#x2F; true</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 如果参数是undefined或null，它们无法转为对象，所以会报错。</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">Object.getPropertyOf(undefined) &#x2F;&#x2F; baocuo</span></pre></td></tr></table></figure>
+<hr>
+<h3 id="Object-keys-Object-values-Object-entries-遍历对象"><a href="#Object-keys-Object-values-Object-entries-遍历对象" class="headerlink" title="Object.keys() Object.values Object.entries() // 遍历对象"></a>Object.keys() Object.values Object.entries() // 遍历对象</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Object.keys()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">let person &#x3D;&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    name:&#39;zzx&#39;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    age:18,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    hobbies:&#39;games&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">Object.keys(person) &#x2F;&#x2F; [&#39;name&#39;,&#39;age&#39;,&#39;hobbies&#39;]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">Object.values(person) &#x2F;&#x2F; [&#39;zzx&#39;,18,&#39;games&#39;]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">Object.entries(person)  &#x2F;&#x2F; [[&#39;name&#39;,&#39;zzx&#39;],[&#39;age&#39;,18],[&#39;hobbies&#39;,&#39;games&#39;]]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">const map &#x3D; new Map(Object.entries(person)); &#x2F;&#x2F; Object.entries 可直接转成map数据结构</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Object.entries() Object.fromEntries()是相反的操作 </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">var data &#x3D; Object.entries(person)    &#x2F;&#x2F; data&#x3D;&gt;[[&#39;name&#39;,&#39;zzx&#39;][&#39;age&#39;,18][&#39;hobbies&#39;,&#39;games&#39;]]  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 键值对形式的数组 可以转成map</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">Object.formEntries(new Map(data)) &#x2F;&#x2F; &#123;name:&#39;zzx&#39;,age:18,hobbies:&#39;games&#39;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; map数据结构转化成对象</span></pre></td></tr></table></figure>
+
+
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/29/promise/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pretend Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/29/promise/" class="post-title-link" itemprop="url">promise</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-29 16:08:39" itemprop="dateCreated datePublished" datetime="2019-11-29T16:08:39+08:00">2019-11-29</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/29/es6-proxy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pretend Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/29/es6-proxy/" class="post-title-link" itemprop="url">es6 proxy</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-11-29 16:08:03 / Modified: 16:08:20" itemprop="dateCreated datePublished" datetime="2019-11-29T16:08:03+08:00">2019-11-29</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="proxy-es6"><a href="#proxy-es6" class="headerlink" title="proxy es6"></a>proxy es6</h3><hr>
+<h6 id="代理has-方法"><a href="#代理has-方法" class="headerlink" title="代理has 方法"></a>代理has 方法</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 用法 防止 in 检测属性  可以进行拦截呗检测某个属性</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">var handler &#x3D; &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    has(target,prop)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        if(prop[0]&#x3D;&#x3D;&#x3D;&#39;_&#39;)&#123;   &#x2F;&#x2F; 避免以下划线开头的属性被检测到</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">            return false</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">        return prop in target</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">var obj &#x3D; &#123;_prop:a,prop:a&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">var proxy &#x3D; new Proxy(obj,handler)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">&#39;_prop&#39; in obj  &#x2F;&#x2F; false</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">&#39;prop&#39; in obj &#x2F;&#x2F;  true</span></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 如果对象禁止扩展 使用proxy has 方法 报错</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">var handler &#x3D; &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    has(target,prop)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        return false</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">var obj &#x3D; &#123;name:&#39;zzx&#39;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">Object.preventExtenstions(obj)   &#x2F;&#x2F; 禁止obj扩展属性</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">var proxy &#x3D; new Proxy(obj,handler)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">obj.a &#x3D; &#39;nihao&#39; &#x2F;&#x2F; baocuo</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; has 拦截属性 是不管是对象自身还是继承的 都会拦截  hasPropety 不是hasOwnProperty</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">var obj &#x3D; &#123;name:&#39;zzx&#39;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">var obj1 &#x3D; Object.create(obj)  &#x2F;&#x2F; 继承obj的属性</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">obj1.name &#x2F;&#x2F; &#39;zzx&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">handler()&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">    has(target,prop)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">        if(prop&#x3D;&#x3D;&#x3D;&#39;name&#39;)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">            throw new Error(&#39;error&#39;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">        return prop in target</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">var proxy &#x3D; new Proxy(obj1,handler)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">&#39;name&#39; in proxy &#x2F;&#x2F; false</span></pre></td></tr></table></figure>
+
+<hr>
+<h6 id="代理construct方法-拦截new命令"><a href="#代理construct方法-拦截new命令" class="headerlink" title="代理construct方法 拦截new命令"></a>代理construct方法 拦截new命令</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&#x2F;*construct 参数</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  target,目标对象</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  args，函数参数</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  newTarget: new 实例对象</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; example</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">var fn &#x3D; new Proxy(function()&#123;&#125;,&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    construct(target,args,newTarget)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        console.log(&#39;call:&#39;+ args[0])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        return &#123;value: args[0]*10&#125;   &#x2F;&#x2F; 只能返回对象  否则报错</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">&#125;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">(new fn(5))   &#x2F;&#x2F; 50</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">*&#x2F;</span></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/29/es6-class/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -459,7 +808,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
